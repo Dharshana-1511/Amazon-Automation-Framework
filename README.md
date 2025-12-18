@@ -1,12 +1,10 @@
-# Amazon Product Search Automation using Java Selenium 
+#Amazon Product Search Automation using Java Selenium 
 
-📌 Objective
+#Objective
 This project automates a basic e-commerce workflow on **Amazon** using **Selenium WebDriver with Java**.  
 It demonstrates handling of dynamic web elements, use of explicit waits, and basic validation with screenshot capture.
 
----
-
-🧪 Automated Scenario
+#Automated Scenario
 The following workflow is automated:
 
 1. Navigate to the Amazon homepage  
@@ -16,18 +14,14 @@ The following workflow is automated:
    - Validation is done by checking the presence of the **“Add to Cart”** button  
 5. Capture a **screenshot** of the Product Details Page
 
----
-
- 🛠️ Tech Stack
+#Tech Stack
 - Language: Java  
 - Automation Tool:Selenium WebDriver  
 - Build Tool:Maven  
 - Browser:Google Chrome  
 - Wait Strategy: Explicit Wait (`WebDriverWait`)  
 
----
-
-## 📂 Project Structure
+#Project Structure
 amazon-automation
 ├── src/test/java
 │   ├── com.selenium.amazon_automation
