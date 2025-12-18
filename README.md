@@ -1,4 +1,4 @@
-# Amazon Product Search Automation – Selenium Java
+# Amazon Product Search Automation using Java Selenium 
 
 📌 Objective
 This project automates a basic e-commerce workflow on **Amazon** using **Selenium WebDriver with Java**.  
