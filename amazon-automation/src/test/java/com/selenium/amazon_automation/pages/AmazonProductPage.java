@@ -17,44 +17,72 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class AmazonProductPage {
+	WebDriver driver;
+    WebDriverWait wait;
 
-	    WebDriver driver;
-	    WebDriverWait wait;
-	    private By addToCartBtn = By.id("add-to-cart-button");
+    // ✅ Stable Amazon Locators
+  
+   // private By addToCartBtn = By.id("add-to-cart-button");
+    // ✅ Locate BOTTOM Add to Cart
+    
+    private By addToCartBtn = By.xpath("(//input[@id='add-to-cart-button'])[last()]");
+    
 
-	    public AmazonProductPage(WebDriver driver, WebDriverWait wait) {
-	        this.driver = driver;
-	        this.wait = wait;
-	    }
+    //private By addToCartBtn = By.xpath("//div[@id='rightCol']//input[@id='add-to-cart-button']");
+    ////div[@id='rightCol']//input[@id='add-to-cart-button']  192*28
+   // private By buyNowBtn    = By.id("buy-now-button");
+    private By productTitle = By.id("productTitle");
 
-	    // 🔽 Scroll to Add to Cart
-	    public void scrollToAddToCart() {
-	        WebElement addToCart = wait.until(
-	                ExpectedConditions.presenceOfElementLocated(addToCartBtn)
-	        );
 
-	        ((JavascriptExecutor) driver)
-	                .executeScript("arguments[0].scrollIntoView({block:'center'});", addToCart);
-	    }
+    public AmazonProductPage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
+    }
+    public void waitForProductPage() {
+        ensureProductTab();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle));
+    }
 
-	    // ✅ Validate Product Page Loaded
-	    public boolean isAddToCartVisible() {
-	        try {
-	            scrollToAddToCart();
-	            wait.until(ExpectedConditions.visibilityOfElementLocated(addToCartBtn));
-	            return driver.findElement(addToCartBtn).isDisplayed();
-	        } catch (TimeoutException e) {
-	            return false;
-	        }
-	    }
+    // 🔴 MUST: switch to product tab
+    private void ensureProductTab() {
+        for (String handle : driver.getWindowHandles()) {
+            driver.switchTo().window(handle);
+        }
+    }
+    public void clickAddToCart() {
 
-	    // 📸 Screenshot
-	    public void takeScreenshot(String fileName) throws IOException {
-	        TakesScreenshot ts = (TakesScreenshot) driver;
-	        File src = ts.getScreenshotAs(OutputType.FILE);
-	        File dest = new File("screenshots/" + fileName + ".png");
-	        FileUtils.copyFile(src, dest);
-	    }
+        ensureProductTab();
+
+        // ✅ Confirm product page loaded
+        wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle));
+
+        WebElement addToCart = wait.until(
+                ExpectedConditions.presenceOfElementLocated(addToCartBtn)
+        );
+
+        // ✅ Scroll into view
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", addToCart
+        );
+        
+        // Optional highlight (debug)
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].style.border='3px solid red'", addToCart
+        );
+        // ✅ Amazon-safe JS click (DO NOT wait for clickable)
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].click();", addToCart
+        );
+    }
+
+
+    // 📸 Screenshot
+    public void takeScreenshot(String fileName) throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File src = ts.getScreenshotAs(OutputType.FILE);
+        File dest = new File("Product screenshots/" + fileName + ".png");
+        FileUtils.copyFile(src, dest);
+    }
 	}
 	        
 	 
