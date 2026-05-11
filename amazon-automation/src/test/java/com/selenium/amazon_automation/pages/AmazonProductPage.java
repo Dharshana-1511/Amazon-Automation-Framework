@@ -20,17 +20,10 @@ public class AmazonProductPage {
 	WebDriver driver;
     WebDriverWait wait;
 
-    // ✅ Stable Amazon Locators
-  
-   // private By addToCartBtn = By.id("add-to-cart-button");
-    // ✅ Locate BOTTOM Add to Cart
+   
     
     private By addToCartBtn = By.xpath("(//input[@id='add-to-cart-button'])[last()]");
     
-
-    //private By addToCartBtn = By.xpath("//div[@id='rightCol']//input[@id='add-to-cart-button']");
-    ////div[@id='rightCol']//input[@id='add-to-cart-button']  192*28
-   // private By buyNowBtn    = By.id("buy-now-button");
     private By productTitle = By.id("productTitle");
 
 
@@ -43,7 +36,7 @@ public class AmazonProductPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle));
     }
 
-    // 🔴 MUST: switch to product tab
+    //  switch to product tab
     private void ensureProductTab() {
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
@@ -53,14 +46,14 @@ public class AmazonProductPage {
 
         ensureProductTab();
 
-        // ✅ Confirm product page loaded
+        //  Confirm product page loaded
         wait.until(ExpectedConditions.visibilityOfElementLocated(productTitle));
 
         WebElement addToCart = wait.until(
                 ExpectedConditions.presenceOfElementLocated(addToCartBtn)
         );
 
-        // ✅ Scroll into view
+        //  Scroll into view
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].scrollIntoView({block:'center'});", addToCart
         );
@@ -69,14 +62,13 @@ public class AmazonProductPage {
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].style.border='3px solid red'", addToCart
         );
-        // ✅ Amazon-safe JS click (DO NOT wait for clickable)
+        // Amazon-safe JS click (DO NOT wait for clickable)
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].click();", addToCart
         );
     }
 
-
-    // 📸 Screenshot
+    // Screenshot
     public void takeScreenshot(String fileName) throws IOException {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File src = ts.getScreenshotAs(OutputType.FILE);

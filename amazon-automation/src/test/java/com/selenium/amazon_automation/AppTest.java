@@ -6,23 +6,20 @@ import org.testng.AssertJUnit;
 /**
  * Unit test for simple App.
  */
-public class AppTest
-{
+public class AppTest {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
-    {
+    public AppTest(String testName) {
     }
 
     /**
      * Rigourous Test :-)
      */
     @Test
-	public void testApp()
-    {
-        AssertJUnit.assertTrue( true );
+    public void testApp() {
+        AssertJUnit.assertTrue(true);
     }
 }
