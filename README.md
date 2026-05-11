@@ -23,6 +23,7 @@ The following workflow is automated:
 
 ```
 ## Project Structure
+
 amazon-automation
 ├── src/test/java
 │   ├── com.selenium.amazon_automation
